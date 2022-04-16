@@ -4,7 +4,8 @@ const cartSpan = document.querySelector(".cart span")
 const refreshElement = document.querySelector(".refresh")
 refreshElement.addEventListener("click", () => {
     localStorage.clear()
-    alert("Please refresh the page to clear all selections!")
+    alert("The page will reload to process your request")
+    location.reload()
 })
 
 function loadCart() {
@@ -18,49 +19,49 @@ function loadCart() {
 let products = [
     {
         name: "Nike Hoodie Bunny",
-        price: 79.99,
+        price: 70,
         inCart: 0,
         imgTag: "./images/nike-hoodie.jpg"
     },
     {
         name: "Nike Hoodie French",
-        price: 59.99,
+        price: 50,
         inCart: 0,
         imgTag: "./images/7.jpg"
     },
     {
         name: "Nike Hoodie Dry-Fit",
-        price: 69.99,
+        price: 60,
         inCart: 0,
         imgTag: "./images/nike-hoodie3.jpg"
     },
     {
         name: "Nike Hoodie Originals",
-        price: 89.99,
+        price: 80,
         inCart: 0,
         imgTag: "./images/nike-hoodie4.jpg"
     },
     {
         name: "Nike Hoodie Plain Blue",
-        price: 69.99,
+        price: 60,
         inCart: 0,
         imgTag: "./images/nike-hoodie5.jpg"
     },
     {
         name: "Nike Hoodie Blue and Yellow",
-        price: 89.99,
+        price: 80,
         inCart: 0,
         imgTag: "./images/nike-hoodie6.jpg"
     },
     {
         name: "Adidas Hoodie Champion",
-        price: 109.99,
+        price: 100,
         inCart: 0,
         imgTag: "./images/8.jpg"
     },
     {
         name: "Adidas Hoodie Scary",
-        price: 79.99,
+        price: 70,
         inCart: 0,
         imgTag: "./images/9.jpg"
     }
@@ -127,18 +128,35 @@ function displayCart() {
     if (cartItems && productsContainer) {
         productsContainer.innerHTML = ""
         Object.values(cartItems).map(item => {
-            productsContainer.innerHTML += `
-            <div class="product">
-            <div class="title">
-                <img src="${item.imgTag}">
-                <span>${item.name}</span>
-            </div>
-            <div class="price">${item.price}</div>
-            <div class="quantity-product">
-                <span> ${item.inCart} </span>
-            </div>
-            <div class="total-product"> ${(item.price * item.inCart).toPrecision()} </div>
-            </div>  `
+            // productsContainer.innerHTML += `
+            // <div class="product">
+            // <div class="title">
+            //     <img src="${item.imgTag}">
+            //     <span>${item.name}</span>
+            // </div>
+            // <div class="price">${item.price}</div>
+            // <div class="quantity-product">
+            //     <button class="remove-cart"> - </button>
+            //     <span> ${item.inCart} </span>
+            // </div>
+            // <div class="total-product"> ${(item.price * item.inCart).toPrecision()} </div>
+            // </div>  `
+
+            const cartItemElement = document.createElement("div")
+            cartItemElement.innerHTML = `
+                <div class="product">
+                <div class="title">
+                    <img src="${item.imgTag}">
+                    <span>${item.name}</span>
+                </div>
+                <div class="price">${item.price}</div>
+                <div class="quantity-product">
+                    <span> ${item.inCart} </span>
+                </div>
+                <div class="total-product"> ${(item.price * item.inCart).toPrecision()} </div>
+                </div>`
+            
+            productsContainer.append(cartItemElement)
         })
 
         productsContainer.innerHTML += `
@@ -150,3 +168,4 @@ function displayCart() {
 
 loadCart()
 displayCart()
+// console.log(JSON.parse(localStorage.getItem("itemsInCart")))
