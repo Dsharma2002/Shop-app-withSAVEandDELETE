@@ -18,49 +18,49 @@ function loadCart() {
 
 let products = [
     {
-        name: "Nike Hoodie Bunny",
+        name: "Nike-Hoodie-Bunny",
         price: 70,
         inCart: 0,
         imgTag: "./images/nike-hoodie.jpg"
     },
     {
-        name: "Nike Hoodie French",
+        name: "Nike-Hoodie-French",
         price: 50,
         inCart: 0,
         imgTag: "./images/7.jpg"
     },
     {
-        name: "Nike Hoodie Dry-Fit",
+        name: "Nike-Hoodie-Dry-Fit",
         price: 60,
         inCart: 0,
         imgTag: "./images/nike-hoodie3.jpg"
     },
     {
-        name: "Nike Hoodie Originals",
+        name: "Nike-Hoodie-Originals",
         price: 80,
         inCart: 0,
         imgTag: "./images/nike-hoodie4.jpg"
     },
     {
-        name: "Nike Hoodie Plain Blue",
+        name: "Nike-Hoodie-Plain-Blue",
         price: 60,
         inCart: 0,
         imgTag: "./images/nike-hoodie5.jpg"
     },
     {
-        name: "Nike Hoodie Blue and Yellow",
+        name: "Nike-Hoodie-Blue-and-Yellow",
         price: 80,
         inCart: 0,
         imgTag: "./images/nike-hoodie6.jpg"
     },
     {
-        name: "Adidas Hoodie Champion",
+        name: "Adidas-Hoodie-Champion",
         price: 100,
         inCart: 0,
         imgTag: "./images/8.jpg"
     },
     {
-        name: "Adidas Hoodie Scary",
+        name: "Adidas-Hoodie-Scary",
         price: 70,
         inCart: 0,
         imgTag: "./images/9.jpg"
@@ -155,6 +155,7 @@ function displayCart() {
             spanQuantity.textContent = item.inCart
             const removeButton = document.createElement("button")
             removeButton.classList.add("remove-cart")
+            removeButton.classList.add(`${item.name}`)
             removeButton.textContent = "-"
             newQuantity.append(removeButton)
             newQuantity.append(spanQuantity)
@@ -180,3 +181,4 @@ function displayCart() {
 
 loadCart()
 displayCart()
+console.log(document.querySelectorAll(".remove-cart"))
