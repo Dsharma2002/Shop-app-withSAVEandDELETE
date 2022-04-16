@@ -128,44 +128,55 @@ function displayCart() {
     if (cartItems && productsContainer) {
         productsContainer.innerHTML = ""
         Object.values(cartItems).map(item => {
-            // productsContainer.innerHTML += `
-            // <div class="product">
-            // <div class="title">
-            //     <img src="${item.imgTag}">
-            //     <span>${item.name}</span>
-            // </div>
-            // <div class="price">${item.price}</div>
-            // <div class="quantity-product">
-            //     <button class="remove-cart"> - </button>
-            //     <span> ${item.inCart} </span>
-            // </div>
-            // <div class="total-product"> ${(item.price * item.inCart).toPrecision()} </div>
-            // </div>  `
 
-            const cartItemElement = document.createElement("div")
-            cartItemElement.innerHTML = `
-                <div class="product">
-                <div class="title">
-                    <img src="${item.imgTag}">
-                    <span>${item.name}</span>
-                </div>
-                <div class="price">${item.price}</div>
-                <div class="quantity-product">
-                    <span> ${item.inCart} </span>
-                </div>
-                <div class="total-product"> ${(item.price * item.inCart).toPrecision()} </div>
-                </div>`
-            
-            productsContainer.append(cartItemElement)
+            const newItemElement = document.createElement("div")
+            newItemElement.classList.add("new-product-container")
+            const newProduct = document.createElement("div")
+            newProduct.classList.add("product")
+            newItemElement.append(newProduct)
+            const newTitle = document.createElement("div")
+            newTitle.classList.add("title")
+            newProduct.append(newTitle)
+            const newName = document.createElement("span")
+            newName.textContent = item.name
+            const newImage = document.createElement("img")
+            newImage.src = item.imgTag
+            newTitle.append(newImage)
+            newTitle.append(newName)
+
+            const newPrice = document.createElement("div")
+            newPrice.classList.add("price")
+            newPrice.textContent = item.price
+            newProduct.append(newPrice)
+
+            const newQuantity = document.createElement("div")
+            newQuantity.classList.add("quantity-product")
+            const spanQuantity = document.createElement("span")
+            spanQuantity.textContent = item.inCart
+            const removeButton = document.createElement("button")
+            removeButton.classList.add("remove-cart")
+            removeButton.textContent = "-"
+            newQuantity.append(removeButton)
+            newQuantity.append(spanQuantity)
+            newProduct.append(newQuantity)
+
+            const newItemsTotal = document.createElement("div")
+            newItemsTotal.classList.add("total-product")
+            newItemsTotal.textContent = item.price * item.inCart
+            newProduct.append(newItemsTotal)
+
+            productsContainer.append(newItemElement)
         })
 
-        productsContainer.innerHTML += `
-        <div class="total-products">
-        <h2>Total cost: $${localStorage.getItem("totalCost")}</h2>
-        </div>`
+        const totalPrice = document.createElement("div")
+        totalPrice.classList.add("total-products")
+        const costItemsH2 = document.createElement("h2")
+        costItemsH2.textContent = `Total Cost: $${localStorage.getItem("totalCost")}`
+        totalPrice.append(costItemsH2)
+
+        productsContainer.append(totalPrice)
     }
 }
 
 loadCart()
 displayCart()
-// console.log(JSON.parse(localStorage.getItem("itemsInCart")))

@@ -118,7 +118,7 @@ footer {
 }
 
 .title {
-    width: 30%;
+    width: 25%;
     align-items: center;
 }
 
@@ -144,5 +144,11 @@ footer {
 
 .price {
     margin: 50px 50px;
+    width: 130px;
 }
 
+.remove-cart {
+    font-size: 1rem;
+    padding: 1px;
+    margin: 5px;
+}
