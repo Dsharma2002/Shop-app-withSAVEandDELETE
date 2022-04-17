@@ -72,6 +72,9 @@ footer {
     text-align: center;
     margin: 30px;
     padding: 10px;
+    position: relative;
+    bottom: 0;
+    min-height: 100%;
 }
 
 .products-container {
