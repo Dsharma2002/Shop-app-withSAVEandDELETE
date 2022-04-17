@@ -21,49 +21,57 @@ let products = [
         name: "Nike-Hoodie-Bunny",
         price: 70,
         inCart: 0,
-        imgTag: "./images/nike-hoodie.jpg"
+        imgTag: "./images/nike-hoodie.jpg",
+        key: 1
     },
     {
         name: "Nike-Hoodie-French",
         price: 50,
         inCart: 0,
-        imgTag: "./images/7.jpg"
+        imgTag: "./images/7.jpg",
+        key: 2
     },
     {
         name: "Nike-Hoodie-Dry-Fit",
         price: 60,
         inCart: 0,
-        imgTag: "./images/nike-hoodie3.jpg"
+        imgTag: "./images/nike-hoodie3.jpg",
+        key: 3
     },
     {
         name: "Nike-Hoodie-Originals",
         price: 80,
         inCart: 0,
-        imgTag: "./images/nike-hoodie4.jpg"
+        imgTag: "./images/nike-hoodie4.jpg",
+        key: 4
     },
     {
         name: "Nike-Hoodie-Plain-Blue",
         price: 60,
         inCart: 0,
-        imgTag: "./images/nike-hoodie5.jpg"
+        imgTag: "./images/nike-hoodie5.jpg",
+        key: 5
     },
     {
         name: "Nike-Hoodie-Blue-and-Yellow",
         price: 80,
         inCart: 0,
-        imgTag: "./images/nike-hoodie6.jpg"
+        imgTag: "./images/nike-hoodie6.jpg",
+        key: 6
     },
     {
-        name: "Adidas-Hoodie-Champion",
+        name: "Adkeyas-Hoodie-Champion",
         price: 100,
         inCart: 0,
-        imgTag: "./images/8.jpg"
+        imgTag: "./images/8.jpg",
+        key: 7
     },
     {
-        name: "Adidas-Hoodie-Scary",
+        name: "Adkeyas-Hoodie-Scary",
         price: 70,
         inCart: 0,
-        imgTag: "./images/9.jpg"
+        imgTag: "./images/9.jpg",
+        key: 8
     }
 ]
 
@@ -130,7 +138,8 @@ function displayCart() {
         Object.values(cartItems).map(item => {
 
             const newItemElement = document.createElement("div")
-            newItemElement.classList.add("new-product-container")
+            newItemElement.classList.add(`${item.name}`)
+            newItemElement.dataset.name = `${item.name}`
             const newProduct = document.createElement("div")
             newProduct.classList.add("product")
             newItemElement.append(newProduct)
@@ -152,10 +161,12 @@ function displayCart() {
             const newQuantity = document.createElement("div")
             newQuantity.classList.add("quantity-product")
             const spanQuantity = document.createElement("span")
+            spanQuantity.classList.add("span-number")
             spanQuantity.textContent = item.inCart
             const removeButton = document.createElement("button")
             removeButton.classList.add("remove-cart")
-            removeButton.classList.add(`${item.name}`)
+            // removeButton.classList.add(`${item.name}`)
+            removeButton.dataset.name = `${item.name}`
             removeButton.textContent = "-"
             newQuantity.append(removeButton)
             newQuantity.append(spanQuantity)
@@ -172,7 +183,11 @@ function displayCart() {
         const totalPrice = document.createElement("div")
         totalPrice.classList.add("total-products")
         const costItemsH2 = document.createElement("h2")
-        costItemsH2.textContent = `Total Cost: $${localStorage.getItem("totalCost")}`
+        costItemsH2.textContent = `Total Cost: $`
+        const spanTotal = document.createElement("span")
+        spanTotal.classList.add("items-total-price")
+        spanTotal.textContent = localStorage.getItem("totalCost")
+        costItemsH2.append(spanTotal)
         totalPrice.append(costItemsH2)
 
         productsContainer.append(totalPrice)
@@ -181,4 +196,52 @@ function displayCart() {
 
 loadCart()
 displayCart()
-console.log(document.querySelectorAll(".remove-cart"))
+// console.log(document.querySelectorAll(".remove-cart"))
+
+const removeCartButtons = document.querySelectorAll(".remove-cart")
+// console.log(removeCartButtons)
+for (let i = 0; i < removeCartButtons.length; i++) {
+    removeCartButtons[i].addEventListener("click", (e) => {
+        // console.log(products.find(product => product.name === removeCartButtons[i].dataset.name))
+        // console.log(products.findIndex(product => product.name === removeCartButtons[i].dataset.name))
+        const itemInArray = products.findIndex(product => product.name === removeCartButtons[i].dataset.name)
+
+        removeNumber(products[itemInArray])
+        updateTotal(products[itemInArray])
+        location.reload()
+    })
+}
+
+function removeNumber(product) {
+    const existingCartNumber = localStorage.getItem("cartNumbers")
+    localStorage.setItem("cartNumbers", parseInt(existingCartNumber) - 1)
+
+    cartSpan.textContent = localStorage.getItem("cartNumbers")
+
+    setRemovedItem(product)
+}
+
+function setRemovedItem(product) {
+    const mainContainer = document.querySelector(".products")
+    const removedProduct = document.querySelector(`.${product.name}`)
+    const spanNumber = document.querySelector(".span-number")
+    let cartItems = localStorage.getItem("itemsInCart")
+    cartItems = JSON.parse(cartItems)
+    cartItems[product.name].inCart -= 1
+    spanNumber.textContent = cartItems[product.name].inCart
+    console.log("this item in cart: ", cartItems[product.name].inCart)
+    if (cartItems[product.name].inCart === 0) {
+        delete cartItems[product.name]
+        mainContainer.removeChild(removedProduct)
+    }
+    localStorage.setItem("itemsInCart", JSON.stringify(cartItems))
+
+}
+
+function updateTotal(product) {
+    const existingTotal = localStorage.getItem("totalCost")
+    localStorage.setItem("totalCost", parseInt(existingTotal) - product.price)
+
+    const totalSpan = document.querySelector(".items-total-price")
+    totalSpan.textContent = localStorage.getItem("totalCost")
+}

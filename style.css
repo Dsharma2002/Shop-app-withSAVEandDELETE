@@ -136,10 +136,13 @@ footer {
     border-radius: 8px;
     padding: 2px;
     background-color: transparent;
+    transition: 0.2s ease-in;
 }
 
 .refresh:hover {
     cursor: pointer;
+    color: rgb(225, 86, 114);
+    background-color: white;
 }
 
 .price {
