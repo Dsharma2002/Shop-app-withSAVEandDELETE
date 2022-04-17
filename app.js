@@ -76,7 +76,8 @@ let products = [
 ]
 
 for (let i = 0; i < carts.length; i++) {
-    carts[i].addEventListener("click", () => {
+    carts[i].addEventListener("click", (e) => {
+        e.preventDefault
         cartNumbers(products[i])
         totalCost(products[i])
     })
@@ -244,4 +245,5 @@ function updateTotal(product) {
 
     const totalSpan = document.querySelector(".items-total-price")
     totalSpan.textContent = localStorage.getItem("totalCost")
+    
 }
