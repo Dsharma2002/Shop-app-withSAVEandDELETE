@@ -4,3 +4,5 @@ A shop application which displays the available items and lets the user add item
 and maybe even deselect all items to start fresh. 
 
 Added functionality to remove selected items once on every button click, if you do not want to refresh entire selection!
+
+The save and delete functionalities are added by the use of local Storage
