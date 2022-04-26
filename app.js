@@ -147,6 +147,11 @@ function displayCart() {
             const newTitle = document.createElement("div")
             newTitle.classList.add("title")
             newProduct.append(newTitle)
+
+            const cancelButton = document.createElement("button")
+            cancelButton.classList.add("cancel-single-all")
+            newTitle.append(cancelButton)
+            cancelButton.textContent = "x"
             const newName = document.createElement("span")
             newName.textContent = item.name
             const newImage = document.createElement("img")
@@ -166,7 +171,7 @@ function displayCart() {
             spanQuantity.textContent = item.inCart
             const removeButton = document.createElement("button")
             removeButton.classList.add("remove-cart")
-            // removeButton.classList.add(`${item.name}`)
+
             removeButton.dataset.name = `${item.name}`
             removeButton.textContent = "-"
             newQuantity.append(removeButton)
@@ -197,17 +202,15 @@ function displayCart() {
 
 loadCart()
 displayCart()
-// console.log(document.querySelectorAll(".remove-cart"))
 
 const removeCartButtons = document.querySelectorAll(".remove-cart")
-// console.log(removeCartButtons)
 for (let i = 0; i < removeCartButtons.length; i++) {
     removeCartButtons[i].addEventListener("click", (e) => {
         // console.log(products.find(product => product.name === removeCartButtons[i].dataset.name))
         // console.log(products.findIndex(product => product.name === removeCartButtons[i].dataset.name))
         const itemInArray = products.findIndex(product => product.name === removeCartButtons[i].dataset.name)
 
-        removeNumber(products[itemInArray])
+        removeNumber(products[itemInArray]) 
         updateTotal(products[itemInArray])
         location.reload()
     })
