@@ -148,10 +148,6 @@ function displayCart() {
             newTitle.classList.add("title")
             newProduct.append(newTitle)
 
-            const cancelButton = document.createElement("button")
-            cancelButton.classList.add("cancel-single-all")
-            newTitle.append(cancelButton)
-            cancelButton.textContent = "x"
             const newName = document.createElement("span")
             newName.textContent = item.name
             const newImage = document.createElement("img")
@@ -210,7 +206,7 @@ for (let i = 0; i < removeCartButtons.length; i++) {
         // console.log(products.findIndex(product => product.name === removeCartButtons[i].dataset.name))
         const itemInArray = products.findIndex(product => product.name === removeCartButtons[i].dataset.name)
 
-        removeNumber(products[itemInArray]) 
+        removeNumber(products[itemInArray])
         updateTotal(products[itemInArray])
         location.reload()
     })
@@ -248,5 +244,5 @@ function updateTotal(product) {
 
     const totalSpan = document.querySelector(".items-total-price")
     totalSpan.textContent = localStorage.getItem("totalCost")
-    
+
 }
